@@ -17,16 +17,9 @@ public class JpaMain {
         tx.begin();
 
         try {
-            //Member findMember = entityManager.find(Member.class, 1L);
-            //findMember.setName("HelloJPA");
-            List<Member> resultList = entityManager.createQuery("SELECT m FROM Member m ", Member.class)
-                    .setFirstResult(0)
-                    .setMaxResults(10)
-                    .getResultList();
 
-            for (Member member : resultList) {
-                System.out.println(member.getName());
-            }
+            Member findMemeber = entityManager.find(Member.class, 150L);
+            findMemeber.setName("AAAAA");
 
 
             tx.commit();
