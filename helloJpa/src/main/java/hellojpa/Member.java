@@ -3,8 +3,9 @@ package hellojpa;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -12,13 +13,28 @@ import javax.persistence.Id;
 public class Member {
     @Id
     private Long id;
-    private String name;
 
-    public Member() {
-    }
+    @Column(name = "name")
+    private String username;
 
-    public Member(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private Integer age;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDateTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDateTime;
+
+    @Lob
+    private String description;
+
+    @Transient
+    private int temp;
+
+    public Member() {}
+
+
 }

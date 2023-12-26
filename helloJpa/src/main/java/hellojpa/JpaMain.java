@@ -19,7 +19,7 @@ public class JpaMain {
         try {
 
             Member findMemeber = entityManager.find(Member.class, 150L);
-            findMemeber.setName("AAAAA");
+            findMemeber.setUsername("AAA");
 
 
             tx.commit();
