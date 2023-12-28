@@ -18,9 +18,12 @@ public class JpaMain {
 
         try {
 
-            Member findMemeber = entityManager.find(Member.class, 150L);
-            findMemeber.setUsername("AAA");
+            //Member findMemeber = entityManager.find(Member.class, 150L);
+            //findMemeber.setUsername("AAA");
 
+            PrimaryKey pk = new PrimaryKey();
+            pk.setName("pk1");
+            entityManager.persist(pk);
 
             tx.commit();
         } catch (Exception e) {
