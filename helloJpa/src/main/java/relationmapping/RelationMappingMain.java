@@ -1,14 +1,15 @@
-package shop;
+package relationmapping;
 
-import shop.domain.Member;
-import shop.domain.Order;
+import hellojpa.PrimaryKey;
+import relationmapping.domain.Team;
+import relationmapping.domain.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class ShopMain {
+public class RelationMappingMain {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -18,24 +19,25 @@ public class ShopMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-
-            entityManager.persist(member);
-            entityManager.flush();
-            entityManager.clear();
-
-            Order order = new Order();
-            order.setMember(member);
-
-            entityManager.persist(order);
-
+            /*
+            Team team = new Team();
+            entityManager.persist(team);
             entityManager.flush();
             entityManager.clear();
 
 
-            Order findOrder = entityManager.find(Order.class, 4);
+            User user = new User();
+            user.setTeam(team);
+            entityManager.persist(user);
 
-            System.out.println(findOrder.getMember().getId());
+            entityManager.flush();
+            entityManager.clear();
+            */
+            User findUser = entityManager.find(User.class, 2L);
+
+            System.out.println("user = 2L, Team = " + findUser.getTeam().getId());
+
+
 
             tx.commit();
         } catch (Exception e) {
@@ -45,6 +47,5 @@ public class ShopMain {
         }
 
         emf.close();
-
     }
 }

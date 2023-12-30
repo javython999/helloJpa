@@ -19,8 +19,9 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-    @Column(name = "MEMBER_ID")
-    private Long memberId;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
