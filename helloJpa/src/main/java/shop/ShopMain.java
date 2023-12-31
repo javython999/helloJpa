@@ -1,7 +1,7 @@
 package shop;
 
-import shop.domain.Member;
 import shop.domain.Order;
+import shop.domain.OrderItem;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,24 +18,13 @@ public class ShopMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-
-            entityManager.persist(member);
-            entityManager.flush();
-            entityManager.clear();
-
             Order order = new Order();
-            order.setMember(member);
-
             entityManager.persist(order);
+            //order.addOrderItem(new OrderItem());
 
-            entityManager.flush();
-            entityManager.clear();
-
-
-            Order findOrder = entityManager.find(Order.class, 4);
-
-            System.out.println(findOrder.getMember().getId());
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+            entityManager.persist(orderItem);
 
             tx.commit();
         } catch (Exception e) {
