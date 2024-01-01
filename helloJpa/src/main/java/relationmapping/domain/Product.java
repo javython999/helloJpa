@@ -1,4 +1,4 @@
-package shop.domain;
+package relationmapping.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,17 +12,17 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Item {
+public class Product {
+
+
     @Id
-    @GeneratedValue
-    @Column(name = "ITEM_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private int price;
-    private int stockQuantity;
 
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<UserProduct> memberProducts = new ArrayList<>();
+
 
 }
