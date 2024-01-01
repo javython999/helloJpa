@@ -5,23 +5,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Team {
+public class Locker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TEAM_ID")
+    @Column(name = "LOCKER_ID")
     private Long id;
 
-    private String teamName;
+    private String name;
 
-    @OneToMany
-    @JoinColumn(name = "TEAM_ID")
-    private List<User> userList = new ArrayList<>();
+    @OneToOne(mappedBy = "locker")
+    private User user;
 }

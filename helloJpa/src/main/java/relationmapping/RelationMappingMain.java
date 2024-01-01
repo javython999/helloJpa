@@ -1,6 +1,6 @@
 package relationmapping;
 
-import hellojpa.PrimaryKey;
+import relationmapping.domain.Locker;
 import relationmapping.domain.Team;
 import relationmapping.domain.User;
 
@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+
 
 public class RelationMappingMain {
 
@@ -19,23 +20,24 @@ public class RelationMappingMain {
         tx.begin();
 
         try {
-            /*
-            Team team = new Team();
-            entityManager.persist(team);
-            entityManager.flush();
-            entityManager.clear();
 
+            Locker locker = new Locker();
+            locker.setName("locker1");
+            entityManager.persist(locker);
 
             User user = new User();
-            user.setTeam(team);
+            user.setUsername("username1");
+            user.setLocker(locker);
             entityManager.persist(user);
 
-            entityManager.flush();
-            entityManager.clear();
-            */
-            User findUser = entityManager.find(User.class, 2L);
 
-            System.out.println("user = 2L, Team = " + findUser.getTeam().getId());
+            Team team = new Team();
+            team.setTeamName("team1");
+            team.getUserList().add(user);
+            entityManager.persist(team);
+
+            System.out.println("locker name = " + user.getLocker().getName());
+
 
 
 
