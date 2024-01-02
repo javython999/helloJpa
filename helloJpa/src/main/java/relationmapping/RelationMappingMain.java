@@ -1,6 +1,7 @@
 package relationmapping;
 
 import relationmapping.domain.Locker;
+import relationmapping.domain.Movie;
 import relationmapping.domain.Team;
 import relationmapping.domain.User;
 
@@ -20,26 +21,19 @@ public class RelationMappingMain {
         tx.begin();
 
         try {
+            Movie movie = new Movie();
+            movie.setDirector("봉준호");
+            movie.setActor("송강호");
+            movie.setName("괴물");
+            movie.setPrice(10000);
 
-            Locker locker = new Locker();
-            locker.setName("locker1");
-            entityManager.persist(locker);
+            entityManager.persist(movie);
 
-            User user = new User();
-            user.setUsername("username1");
-            user.setLocker(locker);
-            entityManager.persist(user);
+            entityManager.flush();
+            entityManager.clear();
 
-
-            Team team = new Team();
-            team.setTeamName("team1");
-            team.getUserList().add(user);
-            entityManager.persist(team);
-
-            System.out.println("locker name = " + user.getLocker().getName());
-
-
-
+            Movie findMoive = entityManager.find(Movie.class, movie.getId());
+            System.out.println("findMoive : " + findMoive);
 
             tx.commit();
         } catch (Exception e) {
