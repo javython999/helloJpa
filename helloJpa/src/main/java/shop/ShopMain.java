@@ -1,5 +1,7 @@
 package shop;
 
+import shop.domain.Book;
+import shop.domain.Item;
 import shop.domain.Order;
 import shop.domain.OrderItem;
 
@@ -18,13 +20,11 @@ public class ShopMain {
         tx.begin();
 
         try {
-            Order order = new Order();
-            entityManager.persist(order);
-            //order.addOrderItem(new OrderItem());
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("김영한");
 
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            entityManager.persist(orderItem);
+            entityManager.persist(book);
 
             tx.commit();
         } catch (Exception e) {

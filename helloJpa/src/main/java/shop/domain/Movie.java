@@ -1,19 +1,17 @@
-package relationmapping.domain;
+package shop.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@DiscriminatorValue("M")
-public class Movie extends Goods {
+public class Movie extends Item {
+
     private String director;
     private String actor;
 }

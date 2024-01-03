@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 @NoArgsConstructor
-public class Item {
+@DiscriminatorColumn
+public abstract class Item extends BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "ITEM_ID")

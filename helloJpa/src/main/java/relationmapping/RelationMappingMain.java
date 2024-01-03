@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 
 
 public class RelationMappingMain {
@@ -21,19 +22,15 @@ public class RelationMappingMain {
         tx.begin();
 
         try {
-            Movie movie = new Movie();
-            movie.setDirector("봉준호");
-            movie.setActor("송강호");
-            movie.setName("괴물");
-            movie.setPrice(10000);
+            User user = new User();
+            user.setUsername("user1");
+            user.setCreateBy("Kim");
+            user.setCreateDate(LocalDateTime.now());
 
-            entityManager.persist(movie);
+            entityManager.persist(user);
 
             entityManager.flush();
             entityManager.clear();
-
-            Movie findMoive = entityManager.find(Movie.class, movie.getId());
-            System.out.println("findMoive : " + findMoive);
 
             tx.commit();
         } catch (Exception e) {
