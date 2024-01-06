@@ -1,14 +1,12 @@
 package relationmapping;
 
-import org.hibernate.Hibernate;
-import relationmapping.domain.Team;
-import relationmapping.domain.User;
+import relationmapping.domain.Child;
+import relationmapping.domain.Parent;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 
 public class RelationMappingMain {
@@ -22,28 +20,23 @@ public class RelationMappingMain {
 
         try {
 
-            for (int i = 0; i < 10; i++) {
-                Team team = new Team();
-                team.setTeamName("team" + i);
-                entityManager.persist(team);
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-                User user = new User();
-                user.setUsername("user" + i);
-                user.setTeam(team);
-                entityManager.persist(user);
-            }
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
 
+            entityManager.persist(parent);
+            entityManager.persist(child1);
+            entityManager.persist(child2);
 
             entityManager.flush();
             entityManager.clear();
 
-            List<User> users = entityManager.createQuery(
-                    "SELECT user from User user",
-                    User.class
-            ).getResultList();
-
-
-
+            Parent findParent = entityManager.find(Parent.class, parent.getId());
+            //findParent.getChildList().remove(0);
+            entityManager.remove(findParent);
 
             tx.commit();
         } catch (Exception e) {
