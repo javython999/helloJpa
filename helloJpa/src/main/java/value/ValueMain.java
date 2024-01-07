@@ -19,18 +19,22 @@ public class ValueMain {
         tx.begin();
 
         try {
+            Address address = new Address("city", "street", "12345");
 
-            ValueMember member = new ValueMember();
-            member.setUsername("홍길동");
-            member.setHomeAddress(new Address("city", "street", "12345"));
-            member.setWorkPeriod(
-                    new Period(
-                            LocalDateTime.of(2023, 1, 1, 0, 0),
-                            LocalDateTime.of(2023, 12, 31, 23, 59)
-                    )
-            );
+            ValueMember member1 = new ValueMember();
+            member1.setUsername("홍길동");
+            member1.setHomeAddress(address);
+            entityManager.persist(member1);
 
-            entityManager.persist(member);
+            Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
+
+            ValueMember member2 = new ValueMember();
+            member2.setUsername("김길동");
+            member2.setHomeAddress(copyAddress);
+            entityManager.persist(member2);
+
+            member1.setHomeAddress(new Address("newCity", address.getStreet(), address.getZipcode()));
+            
 
             tx.commit();
         } catch (Exception e) {
