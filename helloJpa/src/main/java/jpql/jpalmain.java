@@ -1,19 +1,15 @@
-package hellojpa;
+package jpql;
 
+import jpql.domain.Client;
 import relationmapping.domain.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-
-public class JpaMain {
-
+public class jpalmain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
         EntityManager entityManager = emf.createEntityManager();
@@ -23,14 +19,18 @@ public class JpaMain {
 
         try {
 
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            Client client = new Client();
+            client.setClientname("홍길동");
+            client.setAge(30);
+            entityManager.persist(client);
 
-            CriteriaQuery<User> query = cb.createQuery(User.class);
+            //Query query = entityManager.createQuery("select c.clientname, c.age from Client c");
+            Client singleResult = entityManager.createQuery("select c from Client c where c.clientname =: username", Client.class)
+                    .setParameter("username", "홍길동")
+                    .getSingleResult();
+            System.out.println(singleResult.getClientname());
+            
 
-            Root<User> u = query.from(User.class);
-
-            CriteriaQuery<User> criteriaQuery = query.select(u).where(cb.equal(u.get("username"), "kim"));
-            List<User> resultList = entityManager.createQuery(criteriaQuery).getResultList();
 
             tx.commit();
         } catch (Exception e) {
