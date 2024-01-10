@@ -3,6 +3,7 @@ package jpql.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString(exclude = "company")
 public class Client {
 
     @Id
@@ -22,5 +24,10 @@ public class Client {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_ID")
     private Company company;
+
+    public void changeCompany(Company company) {
+        this.company = company;
+        company.getClients().add(this);
+    }
 
 }
