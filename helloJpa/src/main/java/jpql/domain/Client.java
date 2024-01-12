@@ -21,6 +21,9 @@ public class Client {
     private String clientname;
     private int age;
 
+    @Enumerated(EnumType.STRING)
+    private ClientType type;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_ID")
     private Company company;
