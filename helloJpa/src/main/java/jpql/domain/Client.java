@@ -12,6 +12,10 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @ToString(exclude = "company")
+@NamedQuery(
+        name = "Client.findByClientname",
+        query = "select c from Client c where c.clientname = :clientname"
+)
 public class Client {
 
     @Id
